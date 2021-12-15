@@ -11,7 +11,7 @@
 
 cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
-set(CMAKE_INSTALL_MESSAGE NEVER)
+set(CMAKE_INSTALL_MESSAGE ALWAYS)
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 if(ENABLE_CTEST)
@@ -46,7 +46,7 @@ if (BUILD_SHARED)
   ebertolazzi_artifacts_suffix(ARTIFACTS_DYNAMIC_SUFFIX FALSE)
 endif()
 
-# NOTE: Glob shall be avoided. Headers and sources shall be declared 
+# NOTE: Glob shall be avoided. Headers and sources shall be declared
 # manually in order to rebuild cmake-cache automatically.
 # Ref: https://cmake.org/cmake/help/v3.15/command/file.html?highlight=glob#filesystem
 set(SOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
@@ -61,12 +61,12 @@ file(GLOB HEADERS "${SOURCES_DIR}/*.hh")
 
 add_library(${STATIC_PROJECT} STATIC ${SOURCES})
 target_include_directories(
-  ${STATIC_PROJECT} PUBLIC 
+  ${STATIC_PROJECT} PUBLIC
   "$<BUILD_INTERFACE:${SOURCES_DIR}>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
 )
 set_target_properties(
-  ${STATIC_PROJECT} PROPERTIES 
+  ${STATIC_PROJECT} PROPERTIES
   OUTPUT_NAME "${PROJECT_NAME}${ARTIFACTS_STATIC_SUFFIX}"
   PUBLIC_HEADER "${HEADERS}"
   POSITION_INDEPENDENT_CODE ON
@@ -76,14 +76,14 @@ if(BUILD_SHARED)
   add_library(${DYNAMIC_PROJECT} SHARED ${SOURCES})
   target_include_directories(${DYNAMIC_PROJECT} PUBLIC "${SOURCES_DIR}")
   set_target_properties(
-    ${DYNAMIC_PROJECT} PROPERTIES 
+    ${DYNAMIC_PROJECT} PROPERTIES
     OUTPUT_NAME "${PROJECT_NAME}${ARTIFACTS_STATIC_SUFFIX}"
     PUBLIC_HEADER "${HEADERS}"
     POSITION_INDEPENDENT_CODE ON
   )
   if(WIN32)
     set_target_properties(
-      ${DYNAMIC_PROJECT} PROPERTIES 
+      ${DYNAMIC_PROJECT} PROPERTIES
       WINDOWS_EXPORT_ALL_SYMBOLS TRUE
     )
   endif()
