@@ -28,6 +28,8 @@ project(
   HOMEPAGE_URL "https://ebertolazzi.github.io/quarticRootsFlocke/"
 )
 
+include(CMakePackageConfigHelpers)
+
 # NOTE: Predictable target name
 set(STATIC_PROJECT "${PROJECT_NAME}Static")
 set(DYNAMIC_PROJECT "${PROJECT_NAME}")

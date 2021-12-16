@@ -1,0 +1,10 @@
+set(QUARTIC_VERSION "@QUARTIC_VERSION@")
+
+@PACKAGE_INIT@
+
+set_and_check(QUARTIC_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+# Should include both static and dynamic libraries as needed.
+# All targets are included as LIBRARIES as long as it is known this project
+# only generates libraries.
+set(QUARTIC_LIBRARIES "${INSTALL_TARGETS}")
