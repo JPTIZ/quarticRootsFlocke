@@ -10,22 +10,18 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 3.0.0)
-set(CMAKE_VERBOSE_MAKEFILE OFF)
-set(CMAKE_INSTALL_MESSAGE ALWAYS)
-set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+set(CMAKE_VERBOSE_MAKEFILE OFF CACHE)
+set(CMAKE_INSTALL_MESSAGE ALWAYS CACHE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE CACHE)
 
 if(ENABLE_CTEST)
   enable_testing()
 endif()
 
 # get version from the git tag if a custom version string is not provided
-message(STATUS "----- Version is currently set to ${VERSION}")
 if(NOT DEFINED VERSION)
     execute_process(COMMAND git describe --tags --abbrev=0 OUTPUT_VARIABLE VERSION)
     string(REGEX REPLACE "\n$" "" VERSION "${VERSION}")
-    message(STATUS "----- Version from Git: ${VERSION}")
-else()
-    message(STATUS "----- Version (predef): ${VERSION}")
 endif()
 
 project(
@@ -118,7 +114,6 @@ endif()
 # INSTALL TARGETS
 
 include(./CMakeInstall.txt)
-generate_project_config_cmake("${PROJECT_VERSION}")
 
 message(STATUS "Using ${SSE_FLAGS} extensions")
 message(STATUS "C compiler                  = ${CMAKE_C_COMPILER_ID} ${CMAKE_C_COMPILER}")
